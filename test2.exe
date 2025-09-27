@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+struct KeyValue{
+    char key[200];
+    char value[200];
+};
+int main(){
+    FILE *fp;
+    fp=fopen("data.txt","r");
+    if (fp==NULL){
+        printf("Not Found");
+        return 1;
+    }
+    char line[200];
+    struct KeyValue data[200];
+    int count=0;
+    char input[200];
+    while(fgets(line,200,fp)!=NULL) {
+        if(line[strlen(line)-1]=='\n'){
+        line[strlen(line)-1]='\0';}
+        if (strlen(line)==0){
+            continue; }
+
+            char *colon=strchr(line,':');
+            if (colon==NULL){
+                continue;}
+                *colon='\0';
+
+        
+                strcpy(data[count].key,line);
+                strcpy(data[count].value,colon+1);
+                count++;
+            }
+        fclose(fp);
+        printf("Mission accomplished,%d items found",count);
+      
+        while(1){
+            printf("\nPlease enter:");
+            scanf("%s",input);
+            if(strcmp(input,"Quit")==0){
+                printf("The end");
+                break;}
+            int found=0;
+            for(int i=0;i<count;i++){
+                if(strcmp(input,data[i].key)==0){
+                    printf("value:%s\n",data[i].value);
+             
+                    found=1;
+                    break;
+                }
+            }
+            if(!found){
+                printf("Error\n");
+            }
+
+            
+        }
+        return 0;
+    }
