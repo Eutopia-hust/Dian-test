@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+    char text[100];
+    char name[100];
+    
+    printf("Welcome: ");
+    scanf("%s", text);
+    getchar(); 
+    
+    while(1){
+        if (strcmp(text, "Login") == 0){
+            printf("Please enter a user name:");
+            
+            
+            if (fgets(name, 100, stdin) != NULL) {
+                
+                name[strcspn(name, "\n")] = 0;
+                
+                
+                if (strlen(name) == 0){
+                    printf("User name cannot be empty,please re-enter:\n");
+                    continue; 
+                }
+                else{
+                    printf("Login successful! Welcome %s\n", name);
+                    return 0;
+                }
+            }
+        }
+        else if(strcmp(text, "Quit") == 0){
+            printf("Program terminated");
+            return 0;
+        }
+        else if(strcmp(text,"Exit")==0){
+            printf("Stop login");
+            break;
+        }
+        else{
+            printf("Do you want to login or quit? Please enter your text: ");
+            scanf("%s", text);
+            getchar(); 
+        }
+    }
+    
+    return 0;
+}
